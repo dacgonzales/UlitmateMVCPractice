@@ -1,0 +1,43 @@
+﻿@model UlitmateMVCPractice.Models.Comment
+
+@{
+    ViewBag.Title = "Create";
+    Layout = null;
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.EventId)
+    @Html.HiddenFor(model => model.CommentPostedDate)
+
+    <h4>Comments</h4>
+    <div class="row">
+        <div class="col-md-6">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.TextAreaFor(model => model.Content, new { cols = "250", placeholder = "Join the discussion..." })
+            @Html.ValidationMessageFor(model => model.Content)
+        </div>
+
+    
+    </div>
+
+    <div style="margin:20px 0 20px 0;">
+        <div>
+            <input type="submit" value="Post" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<div>
+
+    @foreach (var item in Model.Event.CommentList)
+    {
+        <span>@item.Content</span><br />
+    }
+</div>
